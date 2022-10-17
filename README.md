@@ -1,4 +1,13 @@
-# AngularInDepth-starterTo run this C# API:
+# AngularInDepth-starter
+
+A companion repo to the Nexul Academy Angular courses found here: https://www.nexulacademy.com/courseware
+
+* Angular Fundamentals
+* Angular Advanced
+
+
+
+## To run this C# API:
 
 1. Open in Visual Studio 2022
 2. Set startup project to "SimpleCrm.Web.Api"
