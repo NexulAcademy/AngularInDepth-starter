@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Customer } from '../customer.model';
 import {MatTableDataSource} from '@angular/material/table';
 import { CustomerService } from '../customer.service';
@@ -15,34 +15,13 @@ export class CustomerListPageComponent implements OnInit, OnChanges {
   displayColumns = ['type', 'name', 'phoneNumber', 'emailAddress', 'status'];
 
   constructor(
-    custSvc: CustomerService,
+    private custSvc: CustomerService,
   ) {
-    this.customers = [
-      {
-        id: 1,
-        firstName: 'Mike',
-        lastName: 'Lang',
-        emailAddress: 'michael.lang@nexulacademy.com',
-        lastContactDate: '',
-        optInNewsletter: true,
-        phoneNumber: '573-340-9293',
-        status: 'purchased',
-        preferredContactMethod: 'email',
-        type: 'personal'
-      },
-      {
-        id: 2,
-        firstName: 'Bob',
-        lastName: 'Jones',
-        emailAddress: 'bjones@gmail.com',
-        lastContactDate: '',
-        optInNewsletter: true,
-        phoneNumber: '314-555-1234',
-        status: 'prospect',
-        preferredContactMethod: 'phone',
-        type: 'business'
+    this.custSvc.search('').subscribe({
+      next: (list) => {
+        this.customers = list;
       }
-    ]
+    });
     this.dataSource = new MatTableDataSource(this.customers);
   }
   ngOnChanges(changes: SimpleChanges): void {
