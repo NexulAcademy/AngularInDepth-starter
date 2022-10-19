@@ -8,7 +8,10 @@ import { CustomerListPageComponent } from './customer-list-page/customer-list-pa
 import { CustomerService } from './customer.service';
 import { CustomerMockService } from './customer-mock.service';
 import { environment } from 'src/environments/environment';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -16,8 +19,12 @@ import { environment } from 'src/environments/environment';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     CustomerRoutingModule,
+    FlexLayoutModule,
+    MatButtonModule,
     MatCardModule,
+    MatIconModule,
     MatTableModule,
   ],
   providers: [
