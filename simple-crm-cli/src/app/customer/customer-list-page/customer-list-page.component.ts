@@ -37,11 +37,22 @@ export class CustomerListPageComponent implements OnInit, OnChanges {
   addCustomer() {
     const dialogRef = this.dialog.open(CustomerCreateDialogComponent, {
       width: '250px',
-      // data: {name: this.name, animal: this.animal},
+      data: undefined,
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The dialog was closed', result);
+      //this.animal = result;
+    });
+  }
+  updateCustomer(cust: Customer) {
+    const dialogRef = this.dialog.open(CustomerCreateDialogComponent, {
+      width: '250px',
+      data: cust,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
       //this.animal = result;
     });
   }
