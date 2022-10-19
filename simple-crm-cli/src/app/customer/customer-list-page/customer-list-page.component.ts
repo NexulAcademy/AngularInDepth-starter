@@ -2,6 +2,8 @@ import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular
 import { Customer } from '../customer.model';
 import {MatTableDataSource} from '@angular/material/table';
 import { CustomerService } from '../customer.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { CustomerCreateDialogComponent } from '../customer-create-dialog/customer-create-dialog.component';
 
 @Component({
   selector: 'app-customer-list-page',
@@ -16,6 +18,7 @@ export class CustomerListPageComponent implements OnInit, OnChanges {
 
   constructor(
     private custSvc: CustomerService,
+    public dialog: MatDialog,
   ) {
     this.custSvc.search('').subscribe({
       next: (list) => {
@@ -29,6 +32,18 @@ export class CustomerListPageComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+  }
+
+  addCustomer() {
+    const dialogRef = this.dialog.open(CustomerCreateDialogComponent, {
+      width: '250px',
+      // data: {name: this.name, animal: this.animal},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.animal = result;
+    });
   }
 
 }
