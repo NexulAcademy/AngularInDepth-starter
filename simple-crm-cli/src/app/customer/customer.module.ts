@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CustomerDetailComponent } from './customer-detail/customer-detail.compo
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatSnackBarModule,
     MatTableModule,
   ],
   providers: [
