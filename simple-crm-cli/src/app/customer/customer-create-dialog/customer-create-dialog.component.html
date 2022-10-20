@@ -3,6 +3,7 @@
     <mat-form-field>
       <mat-label>First Name</mat-label>
       <input matInput formControlName="firstName" name="firstName">
+      <mat-error>Required.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Last Name</mat-label>
@@ -15,6 +16,8 @@
     <mat-form-field>
       <mat-label>Email Address</mat-label>
       <input matInput #emailAddress formControlName="emailAddress" name="emailAddress">
+      <mat-error *ngIf="!emailAddress.value">Email is Required</mat-error>
+      <mat-error *ngIf="!!emailAddress.value">Must be a valid email address.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Contact Method</mat-label>
