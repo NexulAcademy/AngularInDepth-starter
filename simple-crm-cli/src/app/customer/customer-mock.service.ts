@@ -43,6 +43,12 @@ export class CustomerMockService extends CustomerService {
       ];
     }
   }
+  override get(customerId: number): Observable<Customer> {
+    // Note: if a string "1" was passed into here, this would not match customer with id 1.
+    // With === the type on both sides must be the same.  "1" is not equal to 1.
+    const item = this.customers.find(x => x.id === customerId) as Customer;
+    return of(item);
+  }
 
   override search(term: string): Observable<Customer[]> {
     const items = this.customers.filter(x =>
