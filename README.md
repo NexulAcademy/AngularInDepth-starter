@@ -5,15 +5,36 @@ A companion repo to the Nexul Academy Angular courses found here: https://www.ne
 * Angular Fundamentals
 * Angular Advanced
 
+This repo is for anyone taking only the Angular classes. If you are in the full-stack program, then you will complete the code in this repo during the C# portions of the program.
 
-## Setup OAuth
+# Before you can start the Angular advanced content, complete setup
+
+## 1. Setup OAuth
 
 Create a google app with these instructions and put the credentials in appsettings.development.json
 
 https://learn.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-3.1
 
+## 2. Setup the Customer database
 
-## To run this C# API:
+(Done) The EF migrations were already created for the C# models with this:
+    ..\SimpleCrm.Web.Api> dotnet ef migrations add InitialCreate -p ../SimpleCrm.SqlDbServices/SimpleCrm.SqlDbServices.csproj -c SimpleCrmDbContext
+   
+(TODO) Run both migrations against your local database
+    (from within a teminal in the Web api folder:)
+    ..\SimpleCrm.Web.Api> dotnet ef database update -p ../SimpleCrm.SqlDbServices/SimpleCrm.SqlDbServices.csproj -c SimpleCrmDbContext
+    
+    ..\SimpleCrm.Web.Api> dotnet ef database update -p ../SimpleCrm.SqlDbServices/SimpleCrm.SqlDbServices.csproj -c CrmIdentityDbContext
+
+If the commands say dotnet does not exist, then you are missing some command line tools. The fix can be foind here:
+
+https://learn.microsoft.com/en-us/ef/core/cli/dotnet
+
+to summarize, run this in the terminal:
+
+    dotnet tool install --global dotnet-ef
+
+# To run this C# API:
 
 1. Open in Visual Studio 2022
 2. Set startup project to "SimpleCrm.Web.Api"
