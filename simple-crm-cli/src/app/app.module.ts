@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CustomerModule } from './customer/customer.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AppIconsService } from './app-icons.service';
 
 @NgModule({
   declarations: [
@@ -31,4 +32,6 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(iconService: AppIconsService) {}
+}

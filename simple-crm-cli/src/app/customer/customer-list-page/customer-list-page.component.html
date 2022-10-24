@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title fxLayout="row" fxLayoutAlign="space-between center" >
+  <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
     <span>Customers</span>
     <span fxFlex> </span>
     <button mat-mini-fab color="primary" (click)="addCustomer()">
@@ -35,7 +35,12 @@
     <ng-container matColumnDef="status">
       <!-- The matColumnDef value above must match a name in the displayColumns array  -->
       <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let customer"> {{customer.status}} </td>
+      <td mat-cell *matCellDef="let customer">
+        <div class="row-spaced" fxLayout="row" fxLayoutAlign="start center">
+          <mat-icon [svgIcon]="customer.status | statusIcon"></mat-icon>
+          {{customer.status}}
+        </div>
+      </td>
     </ng-container>
     <ng-container matColumnDef="type">
       <!-- The matColumnDef value above must match a name in the displayColumns array  -->
