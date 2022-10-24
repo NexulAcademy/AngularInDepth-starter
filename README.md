@@ -26,7 +26,7 @@ https://learn.microsoft.com/en-us/aspnet/core/security/authentication/social/goo
     
     ..\SimpleCrm.Web.Api> dotnet ef database update -p ../SimpleCrm.SqlDbServices/SimpleCrm.SqlDbServices.csproj -c CrmIdentityDbContext
 
-If the commands say dotnet does not exist, then you are missing some command line tools. The fix can be foind here:
+If the commands say dotnet does not exist, then you are missing some command line tools. The fix can be found here:
 
 https://learn.microsoft.com/en-us/ef/core/cli/dotnet
 
