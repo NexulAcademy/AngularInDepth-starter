@@ -17,11 +17,15 @@ https://learn.microsoft.com/en-us/aspnet/core/security/authentication/social/goo
 
 ## 2. Setup the Customer database
 
+you need to have Sql Express, or Sql Server Developer installed and a server instance. The migrations command below will create a database in that default database instance.
+
 (Done) The EF migrations were already created for the C# models with this:
+
     ..\SimpleCrm.Web.Api> dotnet ef migrations add InitialCreate -p ../SimpleCrm.SqlDbServices/SimpleCrm.SqlDbServices.csproj -c SimpleCrmDbContext
    
 (TODO) Run both migrations against your local database
     (from within a teminal in the Web api folder:)
+    
     ..\SimpleCrm.Web.Api> dotnet ef database update -p ../SimpleCrm.SqlDbServices/SimpleCrm.SqlDbServices.csproj -c SimpleCrmDbContext
     
     ..\SimpleCrm.Web.Api> dotnet ef database update -p ../SimpleCrm.SqlDbServices/SimpleCrm.SqlDbServices.csproj -c CrmIdentityDbContext
