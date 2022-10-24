@@ -6,6 +6,12 @@ A companion repo to the Nexul Academy Angular courses found here: https://www.ne
 * Angular Advanced
 
 
+## Setup OAuth
+
+Create a google app with these instructions and put the credentials in appsettings.development.json
+
+https://learn.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-3.1
+
 
 ## To run this C# API:
 
