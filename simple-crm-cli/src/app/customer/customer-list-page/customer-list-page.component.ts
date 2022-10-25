@@ -1,39 +1,52 @@
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Customer } from '../customer.model';
-import {MatTableDataSource} from '@angular/material/table';
 import { CustomerService } from '../customer.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { CustomerCreateDialogComponent } from '../customer-create-dialog/customer-create-dialog.component';
 import { Router } from '@angular/router';
+import { BehaviorSubject, combineLatest, debounceTime, Observable, shareReplay, startWith, switchMap, takeUntil } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-list-page',
   templateUrl: './customer-list-page.component.html',
   styleUrls: ['./customer-list-page.component.scss'],
 })
-export class CustomerListPageComponent implements OnInit, OnChanges {
+export class CustomerListPageComponent implements OnInit, OnChanges, OnDestroy {
 
-  customers: Customer[] = [];
-  dataSource!: MatTableDataSource<Customer>; // The ! tells Angular you know it may be used before it is set.  Try it without to see the error
+  customers$: Observable<Customer[]>;
   displayColumns = ['type', 'name', 'phoneNumber', 'emailAddress', 'status', 'actions'];
+  filterInput = new FormControl('');
+  reload$ = new BehaviorSubject<number>(0);
+  onDestroy$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private custSvc: CustomerService,
     public dialog: MatDialog,
     private router: Router,
   ) {
-    this.custSvc.search('').subscribe({
-      next: (list) => {
-        this.customers = list;
-      }
+    const valueChanges = this.filterInput.valueChanges.pipe(startWith(''));
+    this.customers$ = combineLatest([valueChanges, this.reload$]).pipe(
+      debounceTime(700),
+      switchMap(([term, _]) => this.custSvc.search(term || '')),
+      shareReplay(),
+    );
+    this.customers$.pipe(takeUntil(this.onDestroy$)).subscribe({
+      next: () => {}
     });
-    this.dataSource = new MatTableDataSource(this.customers);
+    this.reload$.next(this.reload$.value + 1);
+  }
+  ngOnDestroy(): void {
+    this.onDestroy$.next(true);
   }
   ngOnChanges(changes: SimpleChanges): void {
     // throw new Error('Method not implemented.');
   }
 
   ngOnInit(): void {
+  }
+  search() {
+    this.reload$.next(this.reload$.value + 1);
   }
 
   viewDetail(cust: Customer) {
