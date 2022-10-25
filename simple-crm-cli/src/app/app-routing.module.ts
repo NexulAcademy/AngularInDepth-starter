@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 
 const routes: Routes = [
   {
@@ -7,6 +8,11 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'customers',
   },
+  {
+    path: 'not-authorized',
+    pathMatch: 'full',
+    component: NotAuthorizedComponent
+  }
 ];
 
 @NgModule({

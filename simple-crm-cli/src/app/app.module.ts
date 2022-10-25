@@ -12,10 +12,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { CustomerModule } from './customer/customer.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppIconsService } from './app-icons.service';
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotAuthorizedComponent
   ],
   imports: [
     BrowserModule,
