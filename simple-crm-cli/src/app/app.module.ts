@@ -16,6 +16,7 @@ import { NotAuthorizedComponent } from './not-authorized/not-authorized.componen
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { layoutFeatureKey, layoutReducer } from './store/layout.store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { layoutFeatureKey, layoutReducer } from './store/layout.store';
     StoreDevtoolsModule.instrument({
       name: 'Nexul Academy - Simple CRM'
     }),
-    //EffectsModule.forRoot([])
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

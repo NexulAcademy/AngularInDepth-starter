@@ -20,6 +20,11 @@ import {MatSelectModule} from '@angular/material/select';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { StatusIconPipe } from './status-icon.pipe';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { customerFeatureKey } from './store/customer.store.model';
+import { customerReducer } from './store/customer.store';
+import { CustomerStoreEffects } from './store/customer.store.effects';
 
 @NgModule({
   declarations: [
@@ -42,6 +47,8 @@ import { StatusIconPipe } from './status-icon.pipe';
     MatSelectModule,
     MatSnackBarModule,
     MatTableModule,
+    EffectsModule.forFeature([CustomerStoreEffects]),
+    StoreModule.forFeature(customerFeatureKey, customerReducer),
   ],
   providers: [
     {

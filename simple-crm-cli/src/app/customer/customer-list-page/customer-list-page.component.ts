@@ -6,6 +6,10 @@ import { CustomerCreateDialogComponent } from '../customer-create-dialog/custome
 import { Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, debounceTime, Observable, shareReplay, startWith, switchMap, takeUntil } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { CustomerState } from '../store/customer.store.model';
+import { select, Store } from '@ngrx/store';
+import { searchCustomerAction } from '../store/customer.store';
+import { selectCustomers } from '../store/customer.store.selector';
 
 @Component({
   selector: 'app-customer-list-page',
@@ -24,13 +28,18 @@ export class CustomerListPageComponent implements OnInit, OnChanges, OnDestroy {
     private custSvc: CustomerService,
     public dialog: MatDialog,
     private router: Router,
+    private store: Store<CustomerState>,
   ) {
     const valueChanges = this.filterInput.valueChanges.pipe(startWith(''));
-    this.customers$ = combineLatest([valueChanges, this.reload$]).pipe(
+    this.customers$ = this.store.pipe(select(selectCustomers));
+
+    combineLatest([valueChanges, this.reload$]).pipe(
       debounceTime(700),
-      switchMap(([term, _]) => this.custSvc.search(term || '')),
-      shareReplay(),
-    );
+      //switchMap(([term, _]) => this.custSvc.search(term || '')),
+      // shareReplay(),
+    ).subscribe({
+      next: (([term, _]) => this.store.dispatch(searchCustomerAction({criteria: {term: term || ''}})))
+    });
     this.customers$.pipe(takeUntil(this.onDestroy$)).subscribe({
       next: () => {}
     });
