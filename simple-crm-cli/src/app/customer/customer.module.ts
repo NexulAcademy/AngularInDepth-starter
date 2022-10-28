@@ -47,8 +47,8 @@ import { CustomerStoreEffects } from './store/customer.store.effects';
     MatSelectModule,
     MatSnackBarModule,
     MatTableModule,
-    EffectsModule.forFeature([CustomerStoreEffects]),
     StoreModule.forFeature(customerFeatureKey, customerReducer),
+    EffectsModule.forFeature([CustomerStoreEffects]),
   ],
   providers: [
     {

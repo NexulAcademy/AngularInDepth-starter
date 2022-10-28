@@ -1,6 +1,6 @@
 import { Action, createAction, createReducer, props, on } from "@ngrx/store";
 import { Customer } from "../customer.model";
-import { customerSearchCriteria, CustomerState, initialCustomerState } from "./customer.store.model";
+import { customerSearchCriteria, CustomerState, customerStateAdapter, initialCustomerState } from "./customer.store.model";
 
 export const searchCustomerAction = createAction(
   '[Customer] search customers',
@@ -19,6 +19,10 @@ const rawCustomerReducer = createReducer(
     criteria: action.criteria,
     searchStatus: 'searching'
   })),
+  on(searchCustomerCompleteAction, (state, action) => ({
+    ...customerStateAdapter.setAll(action.result, state),
+    searchStatus: 'done',
+  }))
 )
 
 export function customerReducer(state: CustomerState, action: Action) {

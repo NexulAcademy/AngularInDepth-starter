@@ -4,7 +4,7 @@ import { CustomerService } from '../customer.service';
 import {MatDialog} from '@angular/material/dialog';
 import { CustomerCreateDialogComponent } from '../customer-create-dialog/customer-create-dialog.component';
 import { Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, debounceTime, Observable, shareReplay, startWith, switchMap, takeUntil } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, Observable, shareReplay, startWith, switchMap, takeUntil, tap } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { CustomerState } from '../store/customer.store.model';
 import { select, Store } from '@ngrx/store';
@@ -31,7 +31,11 @@ export class CustomerListPageComponent implements OnInit, OnChanges, OnDestroy {
     private store: Store<CustomerState>,
   ) {
     const valueChanges = this.filterInput.valueChanges.pipe(startWith(''));
-    this.customers$ = this.store.pipe(select(selectCustomers));
+    this.customers$ = this.store.pipe(
+      tap(_ => console.log('selecting...')),
+      select(selectCustomers),
+      tap(data => console.dir('selector', data)),
+    );
 
     combineLatest([valueChanges, this.reload$]).pipe(
       debounceTime(700),
