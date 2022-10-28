@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { LayoutState, selectShowSideNav, toggleSidenav } from './store/layout.store';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'simple-crm-cli';
+  showSideNav$: Observable<boolean>;
+  constructor(private store: Store<LayoutState>) {
+    this.showSideNav$ = this.store.pipe(select(selectShowSideNav));
+  }
+
+  sideNavToggle() {
+    this.store.dispatch(toggleSidenav());
+  }
 }
